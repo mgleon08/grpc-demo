@@ -18,7 +18,8 @@ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
 ```go
 // 產生 兩個檔案，一個是 (proto calc.pb.go），一個是 gRPC 用的檔案（calc_grpc.pb.go）
-protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative pb/calc.proto
+// cd pb
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative calc.proto
 
 // --proto_path = -I
 // paths=source_relative 指定輸出檔案位置和輸入位置一樣
@@ -35,9 +36,10 @@ go run ./client/main.go
 ```ruby
 # 安裝 grpc 套件
 gem install grpc
+gem install grpc-tools
 
 # 產生 .pb 檔案
-protoc --proto_path pb/ --ruby_out=pb/ --ruby_opt=paths=source_relative pb/calc.proto
+protoc --proto_path pb/ --ruby_out=paths=source_relative --grpc_out=paths=source_relative calc.proto
 
 # // 先啟動 server
 ruby ./server/main.ruby
