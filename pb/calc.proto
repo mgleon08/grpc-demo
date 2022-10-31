@@ -1,0 +1,25 @@
+// 撰寫格式是 Proto v3。
+syntax = "proto3";
+
+// 用來避免在不同專案之間的名稱衝突
+package pb;
+
+// 選填（option），用來載入 proto 編譯後的檔案
+option go_package = "grpc-demo/pb";
+
+// CalcRequest 包含了兩個數字，將會傳送至計算服務並對兩個數字進行計算。
+message CalcRequest {
+    int32 number_a = 1;
+    int32 number_b = 2;
+}
+
+// CalcReply 是計算結果，將會回傳給客戶端。
+message CalcReply {
+    int32 result = 1;
+}
+
+// Calculator 定義了一個計算用的服務。
+service Calculator {
+    // Plus 會接收 CalcRequest 資料作加總，最終會回傳 CalcReply。
+    rpc Plus (CalcRequest) returns (CalcReply) {}
+}
